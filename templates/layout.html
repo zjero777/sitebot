@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!--script type="text/javascript" src="{{ url_for('static', filename='js/26051021.js' ) }}" defer=""></script-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/mangoclick.js' ) }}" defer=""></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css' ) }}">
+</head> 
+<body>
+<header>
+   <div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+	<img class="bi me-2" src="{{ url_for('static', filename='img/logo.png' ) }}" hight=31></img>
+	<span class="fs-4"></span>
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
+        <li><a href="https://www.dns-shop.ru/service-center/status/" class="nav-link px-2 link-dark">Статус ремонта</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Поддержка</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Установка КБТ Казань</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Наши СЦ</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary me-2">Login</button>
+        <button type="button" class="btn btn-primary">Sign-up</button>
+      </div>
+    </header>
+  </div>
+ </header>
+
+    {% block body %}{% endblock %}
+
+
+
+    <div class="container">
+        <footer class="py-3 my-4">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+	<li><a href="/" class="nav-link px-2 text-muted">Главная</a></li>
+        <li><a href="https://www.dns-shop.ru/service-center/status/" class="nav-link px-2 text-muted">Статус ремонта</a></li>
+        <li><a href="#" class="nav-link px-2 text-muted">Поддержка</a></li>
+        <li><a href="#" class="nav-link px-2 text-muted">Установка КБТ Казань</a></li>
+        <li><a href="#" class="nav-link px-2 text-muted">Наши СЦ</a></li>
+
+          </ul>
+          <p class="text-center text-muted">© 2022 ДНС Сервис - Верхняя волга</p>
+        </footer>
+      </div>
+
+
+</body>
+
+
+
+
+
+</html>

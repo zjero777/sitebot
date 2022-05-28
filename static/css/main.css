@@ -1,0 +1,8 @@
+@font-face {
+ font-family: dnsfont; 
+ src: url(/static/fonts/RotondaC.ttf); 
+}
+
+h1, h2, h3, h4 {
+  font-family: dnsfont;
+}
