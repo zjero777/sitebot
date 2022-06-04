@@ -9,9 +9,36 @@ h1, .btn {
 
 h1 {
   font-weight: 600;
-  background-image: linear-gradient(to bottom, #0057A3, #4d8ada);
-  color: transparent;
+  
+  color: rgb(255, 255, 255);
   background-clip: text;
   -webkit-background-clip: text;
 
+}
+
+.lead {
+  color: rgb(255, 255, 255);
+}
+
+.mask {
+  background-color: rgba(0, 36, 199, 0.616);  /* Black background with opacity */ 
+}
+
+.hero {
+  background-image: url(/static/img/6a7d0cec41605c4.jpg);
+  height: 50vh;
+  
+}
+
+.icon {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
 }

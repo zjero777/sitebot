@@ -7,76 +7,64 @@
 {% endblock %}
 
 {% block body %}
+<div class="bg-image hero d-flex justify-content-center align-items-center">
+  <div class="mask d-flex justify-content-center align-items-center h-100">
 
-<div class="px-4 pt-2 my-3 text-center border-bottom">
-  <h1 class="display-4">Сервисные центры - Верхняя волга</h1>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">Прямая связь с операторами сервисного центра. Возможность задать вопрос онлайн и сразу получить
-      качественный ответ, от квалифицированного специалиста. Найти информацию о сервисах производителей, нахождения наших
-      сервисов, услугах, времени работы.</p>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-      <button type="button" class="js-mango btn btn-primary btn-lg px-4 me-sm-3">Напишите нам</button>
-      <!--button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button-->
+
+    <div class="px-4 py-5 my-5 text-center ">
+
+
+
+      <h1 class="display-5 fw-bold">Сервисные центры - Верхняя волга</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-3 ">Прямая связь с операторами сервисного центра. Возможность задать вопрос онлайн и сразу
+          получить
+          качественный ответ, от квалифицированного специалиста. Найти информацию о сервисах производителей, нахождения
+          наших
+          сервисов, услугах, времени работы.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" class="js-mango btn btn-primary btn-lg px-4 gap-3">Напишите нам</button>
+        </div>
+      </div>
     </div>
+
   </div>
-  <div class="overflow-hidden" style="max-height: 30vh;">
-    <div class="container px-5">
-      <img src="{{ url_for('static', filename='img/service-support-hero.jpg' ) }}" class="d-block mx-lg-auto img-fluid"
-        alt="Bootstrap Themes" width="700" height="500" loading="lazy">
-    </div>
-  </div>
+
 </div>
+
+
+
+
 
 
 <main role="main">
 
   <!-- Main jumbotron for a primary marketing message or call to action -->
 
-  <div class="container">
+  <div class="container p-3">
     <!-- Example row of columns -->
     <div class="row">
-      <div class="col-md-4">
-        <h2>Возврат, обмен или гарантийный ремонт</h2>
-        <p>Для начала процедуры возврата приобретенного у нас товара обратитесь в магазин с заявлением о возврате
-          товара, товарным и/или кассовым чеком, при себе обязательно иметь документ удостоверяющий личность, а также
-          предоставьте товар в полной комплектации.
-        </p>
-        <p>
-          <a class="btn btn-secondary" href="#" role="button">Подробнее &raquo;</a>
-        </p>
+      {% for element in menu if element.title!='Главная' %}
+      <div class="col-md-4 p-2">
+        <div class="h-100 p-5 bg-light rounded-3">
+          <h2> <svg class="icon icon-square bg-light text-dark flex-shrink-0 me-3">
+              <use xlink:href="#{{ element.icon_svg_name }}"></use>
+            </svg>{{ element.ext_title }}</h2>
+          <p>{{ element.intro }}</p>
+          <a class="btn btn-outline-secondary" href="
+          {% if element.ref %}
+            {{ element.ref }}
+          {% else %}
+            {{ url_for(element.handler) }}
+          {% endif %}
+          " role="button">Посмотреть<svg class="bi" width="1em" height="1em">
+              <use xlink:href="#chevron-right"></use>
+            </svg></a>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h2>Наши СЦ</h2>
-        <p>Режимы работы и адреса наших СЦ с картой гугла, точным расположением, описание как добраться
-        </p>
-        <p>
-          <a class="btn btn-secondary" href="#" role="button">Подробнее &raquo;</a>
-        </p>
-      </div>
-      <div class="col-md-4">
-        <h2>Поддержка</h2>
-        <p>Гарантийная поддержка производителей.</p>
-        <p>
-          <a class="btn btn-secondary" href="#" role="button">Подробнее &raquo;</a>
-        </p>
-      </div>
-      <div class="col-md-4">
-        <h2>Установки</h2>
-        <p>Информация по установкам, прайс на установки г. Казань.</p>
-        <p>
-          <a class="btn btn-secondary" href="#" role="button">Подробнее &raquo;</a>
-        </p>
-      </div>
-      <div class="col-md-4">
-        <h2>Статус ремонта</h2>
-        <p>Вы можете самостоятельно отслеживать статус ремонта своего оборудования.</p>
-        <p>
-          <a class="btn btn-secondary" href="#" role="button">Узнать &raquo;</a>
-        </p>
-      </div>
+      {% endfor %}
     </div>
 
-    <hr>
 
   </div>
   <!-- /container -->
