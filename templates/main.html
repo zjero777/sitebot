@@ -32,9 +32,18 @@
 
 </div>
 
-
-
-
+{%if open_chat %}
+<!-- DO OPEN CHAT MANGO -->
+<script>
+  document.querySelector('.js-mango').addEventListener('click', e => {
+    document.getElementById("mgo-mcw-chat-button").click();
+    setTimeout(function () {
+      document.getElementById("mgo-mcw-chat-button").click(),
+        document.isChatOpen = !0
+    }, 100)
+  });
+</script>
+{% endif %}
 
 
 <main role="main">
