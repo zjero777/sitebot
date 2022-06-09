@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 import re
-
 import os
+
 
 def format_phone(phone): 
     # split string for pnone number by comma
@@ -23,9 +23,7 @@ def format_phone(phone):
 app = Flask(__name__)
 app.jinja_env.filters['format_phone'] = format_phone
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Dfnj100gPG@localhost/sitebot.db'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.secret_key = '&*(%&$^$&%*&(^(*&%^$&*5978539487JKHGgdsuyrh'
+import config
 
 db = SQLAlchemy(app)
 
