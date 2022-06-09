@@ -8,22 +8,25 @@
 
 {% block body %}
 <div class="bg-image hero d-flex justify-content-center align-items-center">
-  <div class="mask d-flex justify-content-center align-items-center h-100">
+  <div class="mask d-flex justify-content-center align-items-center h-100 w-100">
 
 
-    <div class="px-4 py-5 my-5 text-center ">
+    <div class="px-3 py-3 my-3 text-center ">
 
 
 
       <h1 class="display-5 fw-bold">Сервисные центры - Верхняя волга</h1>
       <div class="col-lg-6 mx-auto">
-        <p class="lead mb-3 ">Прямая связь с операторами сервисного центра. Возможность задать вопрос онлайн и сразу
-          получить
-          качественный ответ, от квалифицированного специалиста. Найти информацию о сервисах производителей, нахождения
-          наших
-          сервисов, услугах, времени работы.</p>
+        <p class="lead mb-3">Прямая связь с операторами сервисного центра.
+          Возможность задать вопрос онлайн и сразу получить качественный ответ, от квалифицированного специалиста.
+          Найти информацию о сервисах производителей, нахождения
+          наших сервисов, услугах, времени работы.<br>
+         
+        
+        </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
           <button type="button" class="js-mango btn btn-primary btn-lg px-4 gap-3">Напишите нам</button>
+          <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Заказать звонок</button>
         </div>
       </div>
     </div>
@@ -35,6 +38,7 @@
 {%if open_chat %}
 <!-- DO OPEN CHAT MANGO -->
 <script>
+  console.log('open chat');
   document.querySelector('.js-mango').addEventListener('click', e => {
     document.getElementById("mgo-mcw-chat-button").click();
     setTimeout(function () {
@@ -66,7 +70,7 @@
           {% else %}
             {{ url_for(element.handler) }}
           {% endif %}
-          " role="button">Посмотреть<svg class="bi" width="1em" height="1em">
+          " role="button">{{ element.button_text }}<svg class="bi" width="1em" height="1em">
               <use xlink:href="#chevron-right"></use>
             </svg></a>
         </div>

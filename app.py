@@ -1,9 +1,27 @@
 from flask import Flask, jsonify, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
+import re
+
 import os
 
+def format_phone(phone): 
+    # split string for pnone number by comma
+    phone_list = phone.split(',')
+    for phone in phone_list:
+        # remove all non-digit characters
+        phone = re.sub('\D', '', phone)
+    
+        # format phone number
+        phone = phone[0] + '(' + phone[1:4] + ')' + phone[4:7] + '-' + phone[7:9] + '-' + phone[9:11]
+           
+    
+    
+    return phone_list
+    
+     
 
 app = Flask(__name__)
+app.jinja_env.filters['format_phone'] = format_phone
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Dfnj100gPG@localhost/sitebot.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -20,6 +38,7 @@ class Menu(db.Model):
     ext_title = db.Column(db.String(80))
     intro = db.Column(db.String(300))
     icon_svg_name = db.Column(db.String(20))
+    button_text = db.Column(db.String(80))
     def __repr__(self):
         return '<Menu Item %r - %r - %r>' % self.id, self.name, self.path
     
@@ -88,6 +107,21 @@ def user(name, id):
 def open_chat():
     main_menu = get_menu_items()
     return render_template("main.html", menu=main_menu, open_chat=True)
+
+@app.route('/feedback')
+def feedback():
+    main_menu = get_menu_items()
+    index = get_index_by_handler(main_menu, 'feedback')
+    
+    
+    return render_template("feedback.html", menu=main_menu, index=index)
+
+def get_index_by_handler(menu, handler):
+    for menu_item in menu:
+        if menu_item.handler == handler:
+            return menu.index(menu_item)
+        
+
 
 if __name__ == '__main__':
     app.run(debug=True)
