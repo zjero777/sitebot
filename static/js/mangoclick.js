@@ -9,8 +9,16 @@
 }(window, document, '//widgets.mango-office.ru/widgets/mango.js', 'mango-js', 'mgo'));
 mgo({ multichannel: { id: 11285 } });
 
+$(document).ready(function () {
 
 document.querySelector('.js-mango').addEventListener('click', e => {
+    // if document.querySelector('mgo-mcw-widget') contain class 'mgo-mcw-widget-nonworking' then return
+    if (document.querySelector('.mgo-mcw-widget').classList.contains('.mgo-mcw-widget-nonworking')) {
+        document.querySelector('.js-mango').classList.add('hidden');
+
+     
+    }
+
     document.getElementById("mgo-mcw-chat-button").click();
     setTimeout(function () {
         document.getElementById("mgo-mcw-chat-button").click(),
@@ -18,3 +26,8 @@ document.querySelector('.js-mango').addEventListener('click', e => {
     }, 100)
 });
 
+document.querySelector('.js-mango-callback').addEventListener('click', e => {
+    document.getElementById("mgo-mcw-cb-button").click();
+});
+
+});

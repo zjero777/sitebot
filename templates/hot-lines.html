@@ -5,8 +5,6 @@
 {% endblock %}
 
 {% block body %}
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='js/hl-filter.js' ) }}" type="text/javascript"></script>
 
 
@@ -58,7 +56,7 @@
 
 <!-- TABLE -->
 <div class="container table-responsive">
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th style="width: 26%;"></th>
@@ -79,7 +77,7 @@
                 <td>
                     {%if element.phone is not none %}
                     {% for pe in element.phone|format_phone %}
-                    {{pe}}<br>
+                    <a href="tel:{{pe}}">{{pe}}</a><br>
                     {% endfor %}
                     {%endif%}
                 </td>
