@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body %}
+
+<script defer src="{{ url_for('static', filename='js/feedback.js' ) }}" type="text/javascript"></script>
+
 <div class="container">
     <!-- HEADER -->
     <div class="row mb-3">
@@ -20,7 +23,13 @@
 
 <!-- INTRO -->
 <div class="container bd-example">
+    <div id='not-working' class="alert alert-warning slider " role="alert" style="vertical-align: inherit; ">
+        Контактный центр не работает.  
+        Мы обязательно свяжемся с вами в рабочее время с 9 до 18 (мск).
+      </div>
+
     <p class="lead text-dark">
+
         <font style="vertical-align: inherit;">
             <font style="vertical-align: inherit;">{{ menu[index].intro }}</font>
         </font>
@@ -41,11 +50,11 @@
             {% endfor %}
 
             {{ field.label(class="form-label") }}
-            {{ field(class="form-control "+ e.error_class )  }}
+            {{ field(class="form-control "+ e.error_class ) }}
             {% if e.error_class=="is-invalid" %}
             <div class="invalid-feedback">
                 {{ e.error_text }}
-              </div>            
+            </div>
             {% endif %}
         </div>
 
@@ -115,4 +124,7 @@
     </form> -->
 </div>
 
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}

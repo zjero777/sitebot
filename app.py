@@ -5,11 +5,13 @@ from feedback import FeedbackForm
 from flask_mail import Mail, Message
 
 
+
 app = Flask(__name__)
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
 mail = Mail(app)
+
 
 
 class Menu(db.Model):

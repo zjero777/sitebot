@@ -10,24 +10,26 @@
 mgo({ multichannel: { id: 11285 } });
 
 $(document).ready(function () {
-
-document.querySelector('.js-mango').addEventListener('click', e => {
-    // if document.querySelector('mgo-mcw-widget') contain class 'mgo-mcw-widget-nonworking' then return
-    if (document.querySelector('.mgo-mcw-widget').classList.contains('.mgo-mcw-widget-nonworking')) {
-        document.querySelector('.js-mango').classList.add('hidden');
-
-     
+    mango = $('.js-mango').get(0)
+    if (mango) {
+        mango.addEventListener('click', e => {
+            if ($('.mgo-mcw-widget').get(0).classList.contains('mgo-mcw__widget-nonworking')) {
+                console.log('mango nonworking');
+                window.location.replace('/feedback');
+            }
+            console.log('mango working');
+            document.getElementById("mgo-mcw-chat-button").click();
+            setTimeout(function () {
+                document.getElementById("mgo-mcw-chat-button").click(),
+                    document.isChatOpen = !0
+            }, 100)
+        });
+        
     }
-
-    document.getElementById("mgo-mcw-chat-button").click();
-    setTimeout(function () {
-        document.getElementById("mgo-mcw-chat-button").click(),
-            document.isChatOpen = !0
-    }, 100)
-});
-
-document.querySelector('.js-mango-callback').addEventListener('click', e => {
-    document.getElementById("mgo-mcw-cb-button").click();
-});
-
+    callback = $('.js-mango-callback').get(0)
+    if (callback) {
+        callback.addEventListener('click', e => {
+            document.getElementById("mgo-mcw-cb-button").click();
+        });
+    }
 });
