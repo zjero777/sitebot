@@ -9,6 +9,24 @@
 }(window, document, '//widgets.mango-office.ru/widgets/mango.js', 'mango-js', 'mgo'));
 mgo({ multichannel: { id: 11285 } });
 
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+wait_load_mango = async function (x) {
+    do {
+
+        mango_widget = $('.mgo-mcw-widget').get(0)
+        await sleep(10)
+    }
+    while (mango_widget == undefined);
+
+    console.log('mango widget loaded');
+    x();
+}
+
+
 $(document).ready(function () {
     mango = $('.js-mango').get(0)
     if (mango) {
@@ -24,7 +42,7 @@ $(document).ready(function () {
                     document.isChatOpen = !0
             }, 100)
         });
-        
+
     }
     callback = $('.js-mango-callback').get(0)
     if (callback) {
@@ -32,4 +50,7 @@ $(document).ready(function () {
             document.getElementById("mgo-mcw-cb-button").click();
         });
     }
+
+
+
 });
