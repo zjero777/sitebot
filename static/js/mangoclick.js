@@ -26,21 +26,25 @@ wait_load_mango = async function (x) {
     x();
 }
 
+open_mango_chat = function () {
+    if ($('.mgo-mcw-widget').get(0).classList.contains('mgo-mcw__widget-nonworking')) {
+        console.log('mango nonworking');
+        window.location.replace('/feedback');
+    }
+    console.log('mango working');
+    document.getElementById("mgo-mcw-chat-button").click();
+    setTimeout(function () {
+        document.getElementById("mgo-mcw-chat-button").click(),
+            document.isChatOpen = !0
+    }, 100)
+}
+ 
 
 $(document).ready(function () {
     mango = $('.js-mango').get(0)
     if (mango) {
         mango.addEventListener('click', e => {
-            if ($('.mgo-mcw-widget').get(0).classList.contains('mgo-mcw__widget-nonworking')) {
-                console.log('mango nonworking');
-                window.location.replace('/feedback');
-            }
-            console.log('mango working');
-            document.getElementById("mgo-mcw-chat-button").click();
-            setTimeout(function () {
-                document.getElementById("mgo-mcw-chat-button").click(),
-                    document.isChatOpen = !0
-            }, 100)
+            open_mango_chat();
         });
 
     }

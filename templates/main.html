@@ -35,17 +35,8 @@
 {%if open_chat %}
 <!-- DO OPEN CHAT MANGO -->
 <script>
-
   wait_load_mango(function () {
-    console.log('open chat');
-    mango = $('.js-mango').get(0)
-    if (mango) {
-      $('#mgo-mcw-chat-button').click();
-      setTimeout(function () {
-        $('#mgo-mcw-chat-button').click(),
-          document.isChatOpen = !0
-      }, 100)
-    }
+    open_mango_chat();
   });
 </script>
 {% endif %}
@@ -85,6 +76,7 @@
 
 </main>
 
+<!-- SEND MESSAGE INFO -->
 <script>
   $(document).ready(function () {
     if ($('#modal-body .msg').length != 0) {
@@ -94,7 +86,7 @@
 </script>
 
 
-<!-- Modal -->
+<!-- Modal MESSAGE INFO -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
