@@ -38,7 +38,7 @@ open_mango_chat = function () {
             document.isChatOpen = !0
     }, 100)
 }
- 
+
 
 $(document).ready(function () {
     mango = $('.js-mango').get(0)
@@ -57,4 +57,21 @@ $(document).ready(function () {
 
 
 
+
+    // sc click to open map
+    $('.sc-list').on('click', function () {
+        $('.sc-list').removeClass('active');
+        $(this).toggleClass('active');
+        // Обновить карту по выбранному адресу
+        var address = $(this)[0].children[1];
+
+        map = $('#map').get(0);
+
+        open_map(address, ymaps.map);
+
+
+        
+    }   
+    );  
+     
 });

@@ -1,57 +1,132 @@
-var myMap,
-myPlacemark;
-
 ymaps.ready(init);
 
-function init() {
-
-// Подключаем поисковые подсказки к полю ввода.
-// var suggestView = new ymaps.SuggestView('suggest'),
-//     map,
-//     placemark;
 
 
 
+function open_map(address, myMap) {
+    // Поиск координат центра адреса
+    console.log(address);
+    ymaps.geocode(address, {
+        /**
+         * Опции запроса
+         * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/geocode.xml
+         */
+        // Сортировка результатов от центра окна карты.
+        // boundedBy: myMap.getBounds(),
+        // strictBounds: true,
+        // Вместе с опцией boundedBy будет искать строго внутри области, указанной в boundedBy.
+        // Если нужен только один результат, экономим трафик пользователей.
+        results: 1
+    }).then(function (res) {
+        // Выбираем первый результат геокодирования.
+        var firstGeoObject = res.geoObjects.get(0),
+            // Координаты геообъекта.
+            coords = firstGeoObject.geometry.getCoordinates(),
+            // Область видимости геообъекта.
+            bounds = firstGeoObject.properties.get('boundedBy');
 
+        firstGeoObject.options.set('preset', 'islands#darkBlueDotIconWithCaption');
+        // Получаем строку с адресом и выводим в иконке геообъекта.
+        firstGeoObject.properties.set('iconCaption', firstGeoObject.getAddressLine());
 
-var geolocation = ymaps.geolocation,
-    myMap = new ymaps.Map('map', {
-        center: [-1, -1],
-        zoom: 10,
-        controls: []
+        // Добавляем первый найденный геообъект на карту.
+        myMap.geoObjects.add(firstGeoObject);
+        // Масштабируем карту на область видимости геообъекта.
+        myMap.setBounds(bounds, {
+            // Проверяем наличие тайлов на данном масштабе.
+            checkZoomRange: true
+        });
+
+        /**
+         * Все данные в виде javascript-объекта.
+         */
+        console.log('Все данные геообъекта: ', firstGeoObject.properties.getAll());
+        /**
+         * Метаданные запроса и ответа геокодера.
+         * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/GeocoderResponseMetaData.xml
+         */
+        console.log('Метаданные ответа геокодера: ', res.metaData);
+        /**
+         * Метаданные геокодера, возвращаемые для найденного объекта.
+         * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/GeocoderMetaData.xml
+         */
+        console.log('Метаданные геокодера: ', firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData'));
+        /**
+         * Точность ответа (precision) возвращается только для домов.
+         * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/precision.xml
+         */
+        console.log('precision', firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData.precision'));
+        /**
+         * Тип найденного объекта (kind).
+         * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/kind.xml
+         */
+        console.log('Тип геообъекта: %s', firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData.kind'));
+        console.log('Название объекта: %s', firstGeoObject.properties.get('name'));
+        console.log('Описание объекта: %s', firstGeoObject.properties.get('description'));
+        console.log('Полное описание объекта: %s', firstGeoObject.properties.get('text'));
+        /**
+        * Прямые методы для работы с результатами геокодирования.
+        * @see https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/GeocodeResult-docpage/#getAddressLine
+        */
+        console.log('\nГосударство: %s', firstGeoObject.getCountry());
+        console.log('Населенный пункт: %s', firstGeoObject.getLocalities().join(', '));
+        console.log('Адрес объекта: %s', firstGeoObject.getAddressLine());
+        console.log('Наименование здания: %s', firstGeoObject.getPremise() || '-');
+        console.log('Номер здания: %s', firstGeoObject.getPremiseNumber() || '-');
+
+        /**
+         * Если нужно добавить по найденным геокодером координатам метку со своими стилями и контентом балуна, создаем новую метку по координатам найденной и добавляем ее на карту вместо найденной.
+         */
+        /**
+         var myPlacemark = new ymaps.Placemark(coords, {
+         iconContent: 'моя метка',
+         balloonContent: 'Содержимое балуна <strong>моей метки</strong>'
+         }, {
+         preset: 'islands#violetStretchyIcon'
+         });
+
+         myMap.geoObjects.add(myPlacemark);
+         */
     });
 
 
-geolocation.get({
-    provider: 'yandex',
-    mapStateAutoApply: true
-}).then(function (result) {
-    result.geoObjects.get(0).properties.set();
-    myMap.geoObjects.add(result.geoObjects);
 
 
-});
 
-// Создадим экземпляр элемента управления «поиск по карте»
-// с установленной опцией провайдера данных для поиска по организациям.
-var searchControl = new ymaps.control.SearchControl({
-    options: {
-        provider: 'yandex#search'
+
+
+}
+
+function init() {
+    var myConrtrol = ['zoomControl', 'geolocationControl'];
+    ymaps.geolocation.get().then(function (res) {
+        var mapContainer = $('#map'),
+            bounds = res.geoObjects.get(0).properties.get('boundedBy'),
+            // Рассчитываем видимую область для текущей положения пользователя.
+            mapState = ymaps.util.bounds.getCenterAndZoom(
+                bounds,
+                [mapContainer.width(), mapContainer.height()]
+            );
+        mapState.zoom = 9;
+        mapState.controls = myConrtrol;
+        mapState.balloonAutoPan = true;
+        mapState.center = [res.geoObjects.get(0).geometry.getCoordinates()[0], res.geoObjects.get(0).geometry.getCoordinates()[1]];
+        mapState.type = 'yandex#map';
+        console.log(mapState);
+        createMap(mapState);
+    }, function (e) {
+        // Если местоположение невозможно получить, то просто создаем карту.
+        createMap({
+            center: [55.751574, 37.573856],
+            zoom: 12,
+            controls: myConrtrol
+        });
+    });
+
+    function createMap(state) {
+        map = new ymaps.Map('map', state);
     }
-});
 
-myMap.controls.add(searchControl);
-// Программно выполним поиск определённых кафе в текущей
-// прямоугольной области карты.
-searchControl.search('ДНС сервис');
-// Получим все результаты поиска.
-// var searchResults = searchControl.getResultsArray();
-// Выведем их в консоль.
-// console.log(searchResults);
-// Удалим элемент управления «поиск по карте».
-// myMap.controls.remove(searchControl);
-// Добавим на карту результаты поиска.
-// myMap.geoObjects.add(searchResults);
 
 
 }

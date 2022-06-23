@@ -40,6 +40,20 @@ class Table_hotline(db.Model):
     def __repr__(self):
         return f'<Table_hotline {self.id} - {self.brand}>'
 
+class Services(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+                   nullable=False, unique=True, index=True)
+    name = db.Column(db.String(40), nullable=False)
+    address = db.Column(db.String(100), nullable=False)
+    work_time = db.Column(db.String(100), nullable=False)
+    target = db.Column(db.String(100))
+    # coordinates = db.Column(db.String(100)) 
+
+    def __repr__(self):
+        return f'<Table Service {self.id} - {self.name}>'
+         
+         
+
 
 def format_phone(phone):
     # split string for pnone number by comma
@@ -61,6 +75,25 @@ def get_menu_items():
     except Exception as e:
         main_menu = []
     return main_menu
+
+
+'''
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+                   nullable=False, unique=True, index=True)
+    name = db.Column(db.String(40), nullable=False)
+    address = db.Column(db.String(100))
+    work_time = db.Column(db.String(100))
+    target = db.Column(db.String(100))
+    coordinates = db.Column(db.String(100)) 
+'''
+
+def get_service_list():
+    try:
+        service_list = Services.query.all()
+    except Exception as e:
+        service_list = []
+    return service_list
+    
 
 
 def get_tab_hotlines():
@@ -115,10 +148,15 @@ def hot_lines():
     return render_template("hot-lines.html", menu=main_menu, tab=tab, filter_str=filter_str)
 
 
-@app.route('/our-services')
+@app.route('/our-services', methods=['GET', 'POST'])
 def our_services():
     main_menu = get_menu_items()
-    return render_template("our-services.html", menu=main_menu)
+    service_list = get_service_list()
+    if request.method == 'GET':
+        return render_template("our-services.html", menu=main_menu, service_list=service_list)
+    
+    selected_service = request.form.get("service")
+    return render_template("our-services.html", menu=main_menu, service_list=service_list, selected_service=selected_service)
 
 
 @app.route('/kbt')
