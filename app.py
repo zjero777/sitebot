@@ -112,8 +112,8 @@ def get_index_by_handler(menu, handler):
 
 
 def send_email(subject, sender, recipients, name, message):
-    msg = Message(subject, sender=sender, recipients=recipients)
-    msg.html = f'<h4>Имя клиента: {name}</h4><p>e-mail: {sender}</p><p>Сообщение: {message}</p>'
+    msg = Message(subject, sender='noreply@mail.ru', recipients=recipients)
+    msg.html = f'<h4>Имя клиента: {name}</h4><p>Телефон: {sender}</p><p>Сообщение: {message}</p>'
     mail.send(msg)
 
 
@@ -178,7 +178,7 @@ def feedback():
     form = FeedbackForm()
     if form.validate_on_submit():
         
-        send_email('Сообщение с dns-sc.ru',  form.data['email'], app.config['ADMINS'], form.data['name'], form.data['message'])
+        send_email('Сообщение с dns-sc.ru',  form.data['phone'], app.config['ADMINS'], form.data['name'], form.data['message'])
         flash('Спасибо за обращение!', 'alert alert-success')
         return redirect(url_for('index'))
 
