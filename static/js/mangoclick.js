@@ -63,15 +63,9 @@ $(document).ready(function () {
         $('.sc-list').removeClass('active');
         $(this).toggleClass('active');
         // Обновить карту по выбранному адресу
-        var address = $(this)[0].children[1];
+        var address = $(this)[0].children[1].innerText
+        open_map(address, map);
+    }
+    );
 
-        map = $('#map').get(0);
-
-        open_map(address, ymaps.map);
-
-
-        
-    }   
-    );  
-     
 });
