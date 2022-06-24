@@ -15,11 +15,8 @@ class FeedbackForm(FlaskForm):
                                     length(min=5, max=20)],
                         render_kw={"placeholder": "Введите ваш телефон"})
     
-    
-    # email = EmailField('Адрес электронной почты',
-    #                    validators=[InputRequired(),
-    #                                Email(message="Неправильный адрес почты", check_deliverability=True)],
-    #                    render_kw={"placeholder": "Введите ваш email"})
+    email = EmailField('Адрес электронной почты',
+                       render_kw={"placeholder": "Введите ваш email (необязательно)"})
 
     message = TextAreaField('Сообщение',
                             validators=[DataRequired(message='!!!'),
