@@ -14,6 +14,10 @@ class FeedbackForm(FlaskForm):
                         validators=[InputRequired(),
                                     length(min=5, max=20)],
                         render_kw={"placeholder": "Введите ваш телефон"})
+
+    check = StringField('Номер расходной/товароной накладной',
+                       render_kw={"placeholder": "Введите номер документа покупки (необязательно)"})
+
     
     email = EmailField('Адрес электронной почты',
                        render_kw={"placeholder": "Введите ваш email (необязательно)"})
@@ -22,4 +26,4 @@ class FeedbackForm(FlaskForm):
                             validators=[DataRequired(message='!!!'),
                                         length(min=2, max=500)],
                             render_kw={"placeholder": "Введите ваше сообщение", "rows": 5, "style": "resize: none;"})
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
